@@ -145,6 +145,7 @@ void wifi_manager_init(void)
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));    
    
     scan_semap = xSemaphoreCreateBinary();
+    xSemaphoreGive(scan_semap);   // 添加这一行，使信号量初始可用
 }
 
 void wifi_manager_connect(const char* ssid, const char* password)
@@ -232,20 +233,6 @@ esp_err_t wifi_manager_ap(void)
     esp_netif_dhcps_start(ap_netif);
 
     esp_wifi_start();
-
-    // 获取AP配置用于调试
-    wifi_config_t debug_config;
-    esp_wifi_get_config(WIFI_IF_AP, &debug_config);
-    ESP_LOGI(TAG, "AP Started - SSID: %s, Password: %s, Channel: %d, Authmode: %d",
-             debug_config.ap.ssid,
-             debug_config.ap.password,
-             debug_config.ap.channel,
-             debug_config.ap.authmode);
-
-    // 获取AP IP地址信息
-    esp_netif_ip_info_t ip_info;
-    esp_netif_get_ip_info(ap_netif, &ip_info);
-    ESP_LOGI(TAG, "AP IP Address: " IPSTR, IP2STR(&ip_info.ip));
 
     return ESP_OK;
 }

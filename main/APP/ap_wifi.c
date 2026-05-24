@@ -117,6 +117,7 @@ static void ws_receive_handle(uint8_t* payload, int len)
             {
                 if(strcmp(scan_value, "start") == 0)
                 {
+                    ESP_LOGI(TAG,"wifi scan start");
                     //启动扫描
                     wifi_manager_scan(wifi_receive_handle);
                 }
