@@ -259,7 +259,7 @@ esp_err_t wifi_manager_scan(p_wifi_scan_cb f)
     if(xSemaphoreTake(scan_semap, 0))
     {
         esp_wifi_clear_ap_list();
-        return xTaskCreatePinnedToCore(wifi_scan, "wifi_scan", 8192, f, 3, NULL, 1);
+        return xTaskCreatePinnedToCore(wifi_scan, "wifi_scan", 8192, f, 2, NULL, 1);
     }
     return ESP_OK;
 }

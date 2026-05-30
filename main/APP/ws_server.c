@@ -130,5 +130,5 @@ esp_err_t web_ws_send(uint8_t *data, int len)
     pkt.payload = data;
     pkt.len = len;
     pkt.type = HTTPD_WS_TYPE_TEXT;
-    return httpd_ws_send_data(&server_handle, client_fds, &pkt);
+    return httpd_ws_send_data(server_handle, client_fds, &pkt);
 }
